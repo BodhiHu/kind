@@ -1,0 +1,41 @@
+# three node (two workers) cluster config
+#
+# kubernetes version @ 1.25.0:
+#   kindest/node:v1.25.0@sha256:428aaa17ec82ccde0131cb2d1ca6547d13cf5fdabcc0bbecf749baa935387cbf
+#
+# see:
+#   https://kind.sigs.k8s.io/docs/user/quick-start/#creating-a-cluster
+#   https://github.com/kubernetes-sigs/kind/releases
+#
+
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+nodes:
+- role: control-plane
+  image: kindest/node:v1.25.0@sha256:428aaa17ec82ccde0131cb2d1ca6547d13cf5fdabcc0bbecf749baa935387cbf
+  extraPortMappings:
+  - containerPort: 31510
+    hostPort: 31510
+    protocol: TCP
+  - containerPort: 30890
+    hostPort: 30890
+    protocol: TCP
+- role: worker
+  image: kindest/node:v1.25.0@sha256:428aaa17ec82ccde0131cb2d1ca6547d13cf5fdabcc0bbecf749baa935387cbf
+  extraPortMappings:
+  - containerPort: 31511
+    hostPort: 31511
+    protocol: TCP
+  - containerPort: 32511
+    hostPort: 32511
+    protocol: TCP
+- role: worker
+  image: kindest/node:v1.25.0@sha256:428aaa17ec82ccde0131cb2d1ca6547d13cf5fdabcc0bbecf749baa935387cbf
+  extraPortMappings:
+  - containerPort: 31512
+    hostPort: 31512
+    protocol: TCP
+  - containerPort: 32512
+    hostPort: 32512
+    protocol: TCP
+
